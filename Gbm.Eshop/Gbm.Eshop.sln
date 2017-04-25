@@ -13,7 +13,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resiliency", "Resiliency", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{1011562D-92EF-4DB5-ACEF-48419DABD842}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gbm.Ordering.Domain", "Gbm.Ordering.Domain\Gbm.Ordering.Domain.csproj", "{FC9C9DD9-BEF0-4128-9061-C6E99CB3CB06}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FC9C9DD9-BEF0-4128-9061-C6E99CB3CB06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC9C9DD9-BEF0-4128-9061-C6E99CB3CB06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC9C9DD9-BEF0-4128-9061-C6E99CB3CB06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC9C9DD9-BEF0-4128-9061-C6E99CB3CB06}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
@@ -21,5 +33,6 @@ Global
 		{6776240D-C4EE-4969-A56A-12D92985078F} = {81360833-5AD9-4E11-A8BE-735EFEB96436}
 		{F0B4DA20-1285-4846-9F0F-0B0E46568CDB} = {81360833-5AD9-4E11-A8BE-735EFEB96436}
 		{6D37932B-09E0-4FA2-84AC-6022795FAB31} = {81360833-5AD9-4E11-A8BE-735EFEB96436}
+		{FC9C9DD9-BEF0-4128-9061-C6E99CB3CB06} = {1011562D-92EF-4DB5-ACEF-48419DABD842}
 	EndGlobalSection
 EndGlobal
