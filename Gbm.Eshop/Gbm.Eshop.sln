@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{81360833-5AD9-4E11-A8BE-735EFEB96436}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventBus", "EventBus", "{6776240D-C4EE-4969-A56A-12D92985078F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HealthChecks", "HealthChecks", "{F0B4DA20-1285-4846-9F0F-0B0E46568CDB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resiliency", "Resiliency", "{6D37932B-09E0-4FA2-84AC-6022795FAB31}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{1011562D-92EF-4DB5-ACEF-48419DABD842}"
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6776240D-C4EE-4969-A56A-12D92985078F} = {81360833-5AD9-4E11-A8BE-735EFEB96436}
+		{F0B4DA20-1285-4846-9F0F-0B0E46568CDB} = {81360833-5AD9-4E11-A8BE-735EFEB96436}
+		{6D37932B-09E0-4FA2-84AC-6022795FAB31} = {81360833-5AD9-4E11-A8BE-735EFEB96436}
+	EndGlobalSection
+EndGlobal
