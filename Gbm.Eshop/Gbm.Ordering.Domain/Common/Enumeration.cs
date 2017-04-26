@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace Gbm.Ordering.Domain.Common
@@ -69,6 +70,34 @@ namespace Gbm.Ordering.Domain.Common
             {
                 throw new ArgumentException($"Obj it's not of type {typeof(Enumeration).Name}");
             }
+        }
+
+        public static int AbsoluteDifference(Enumeration firstValue, Enumeration secondValue)
+        {
+            return Math.Abs(firstValue.Id - secondValue.Id);
+        }
+
+        public static T Parse<T,K>(K value, string description, Func<T,bool> predicate) 
+            where T: Enumeration, new()
+        {
+            var matchingItem = GetAll<T>().FirstOrDefault(predicate);
+            if(matchingItem == null)
+            {
+                var message = $"{value} is not valid {description} in {typeof(T)}";
+                throw new InvalidOperationException(message);
+            }
+
+            return matchingItem;
+        }
+
+        public static T  FromValue<T>(int value) where T: Enumeration, new ()
+        {
+            return Parse<T, int>(value, nameof(value), item => item.Id == value);
+        }
+
+        public static T FromDisplayName<T>(string displayName) where T:Enumeration, new()
+        {
+            return Parse<T, string>(displayName, nameof(displayName), item => item.Name == displayName);
         }
     }
 }

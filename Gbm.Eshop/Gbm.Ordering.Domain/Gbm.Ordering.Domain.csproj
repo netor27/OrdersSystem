@@ -8,7 +8,6 @@
     <Folder Include="AggregatesModel\BuyerAggregate\" />
     <Folder Include="AggregatesModel\OrderAggregate\" />
     <Folder Include="Events\" />
-    <Folder Include="Exceptions\" />
   </ItemGroup>
 
   <ItemGroup>
