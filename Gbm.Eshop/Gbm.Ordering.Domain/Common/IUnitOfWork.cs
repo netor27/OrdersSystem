@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Gbm.Ordering.Domain.Common
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork:IDisposable
     {
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
 
