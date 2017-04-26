@@ -1,2 +1,2 @@
 # OrdersSystem
-Orders System microservice demo with DDD
+Application Demo using Domain Driven Design and Microservices
