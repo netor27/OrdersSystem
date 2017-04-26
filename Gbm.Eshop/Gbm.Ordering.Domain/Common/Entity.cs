@@ -12,7 +12,6 @@ namespace Gbm.Ordering.Domain.Common
         int id;
         private List<IAsyncNotification> domainEvents;
 
-
         public virtual int Id
         {
             get { return id; }

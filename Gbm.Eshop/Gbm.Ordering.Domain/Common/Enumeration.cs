@@ -5,7 +5,8 @@ using System.Reflection;
 
 namespace Gbm.Ordering.Domain.Common
 {
-    public abstract class Enumeration : IComparable
+    public abstract class Enumeration<T> : IComparable
+        where T:Enumeration<T>
     {
         public string Name { get; private set; }
         public int Id { get; private set; }
@@ -25,7 +26,7 @@ namespace Gbm.Ordering.Domain.Common
 
         public override bool Equals(object obj)
         {
-            var otherValue = obj as Enumeration;
+            var otherValue = obj as Enumeration<T>;
             if(otherValue == null)
             {
                 return false;
@@ -41,14 +42,13 @@ namespace Gbm.Ordering.Domain.Common
             return Id.GetHashCode();
         }
 
-        public static IEnumerable<T> GetAll<T>() where T : Enumeration, new()
+        public static IEnumerable<T> GetAll() 
         {
             var type = typeof(T);
             var fields = type.GetTypeInfo().GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly);
             foreach (var info in fields)
             {
-                var instance = new T();
-                if (info.GetValue(instance) is T locatedValue)
+                if(info.GetValue(null) is T locatedValue)
                 {
                     yield return locatedValue;
                 }
@@ -62,25 +62,24 @@ namespace Gbm.Ordering.Domain.Common
                 return 1;
             }
 
-            if(obj is Enumeration otherEnumeration)
+            if(obj is Enumeration<T> otherEnumeration)
             {
                 return Id.CompareTo(otherEnumeration.Id);
             }
             else
             {
-                throw new ArgumentException($"Obj it's not of type {typeof(Enumeration).Name}");
+                throw new ArgumentException($"Obj it's not of type {typeof(T).Name}");
             }
         }
 
-        public static int AbsoluteDifference(Enumeration firstValue, Enumeration secondValue)
+        public static int AbsoluteDifference(Enumeration<T> firstValue, Enumeration<T> secondValue)
         {
             return Math.Abs(firstValue.Id - secondValue.Id);
         }
 
-        public static T Parse<T,K>(K value, string description, Func<T,bool> predicate) 
-            where T: Enumeration, new()
+        public static T Parse<K>(K value, string description, Func<T,bool> predicate) 
         {
-            var matchingItem = GetAll<T>().FirstOrDefault(predicate);
+            var matchingItem = GetAll().FirstOrDefault(predicate);
             if(matchingItem == null)
             {
                 var message = $"{value} is not valid {description} in {typeof(T)}";
@@ -90,14 +89,15 @@ namespace Gbm.Ordering.Domain.Common
             return matchingItem;
         }
 
-        public static T  FromValue<T>(int value) where T: Enumeration, new ()
+        public static T FromValue(int value)
         {
-            return Parse<T, int>(value, nameof(value), item => item.Id == value);
+            return Parse(value, nameof(value), item => item.Id == value);
         }
 
-        public static T FromDisplayName<T>(string displayName) where T:Enumeration, new()
+        public static T FromDisplayName(string displayName) 
         {
-            return Parse<T, string>(displayName, nameof(displayName), item => item.Name == displayName);
+            return Parse(displayName, nameof(displayName), 
+                item => item.Name.Equals(displayName, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

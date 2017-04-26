@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="AggregatesModel\BuyerAggregate\" />
     <Folder Include="AggregatesModel\OrderAggregate\" />
     <Folder Include="Events\" />
   </ItemGroup>
