@@ -56,5 +56,19 @@ namespace Gbm.Ordering.Domain.AggregatesModel.OrderAggregate
             this.discount = discount;
         }
 
+        public decimal GetCurrentDiscount()
+        {
+            return this.discount;
+        }
+
+        public void SetUnits(int units)
+        {
+            if (units <= 0)
+            {
+                throw new OrderDomainException("Invalid units");
+            }
+
+            this.units = units;
+        }
     }
 }
