@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="AggregatesModel\OrderAggregate\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="MediatR" Version="2.1.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="1.1.0" />
   </ItemGroup>
