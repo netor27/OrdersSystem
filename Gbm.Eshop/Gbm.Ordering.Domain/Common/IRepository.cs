@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Gbm.Ordering.Domain.Common
+﻿namespace Gbm.Ordering.Domain.Common
 {
     public interface IRepository<T> where T:IAggregateRoot
     {
