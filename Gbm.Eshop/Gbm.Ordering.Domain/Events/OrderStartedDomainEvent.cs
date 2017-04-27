@@ -31,6 +31,5 @@ namespace Gbm.Ordering.Domain.Events
             CardHolderName = cardHolderName;
             CardExpiration = cardExpiration;
         }
-
     }
 }

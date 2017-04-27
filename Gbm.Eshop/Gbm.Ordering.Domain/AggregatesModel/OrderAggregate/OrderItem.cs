@@ -61,14 +61,14 @@ namespace Gbm.Ordering.Domain.AggregatesModel.OrderAggregate
             return this.discount;
         }
 
-        public void SetUnits(int units)
+        public void AddUnits(int units)
         {
             if (units <= 0)
             {
                 throw new OrderDomainException("Invalid units");
             }
 
-            this.units = units;
+            this.units += units;
         }
     }
 }

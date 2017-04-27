@@ -1,7 +1,4 @@
-﻿using System.Threading.Tasks;
-
-
-namespace Gbm.Ordering.Domain.AggregatesModel.BuyerAggregate
+﻿namespace Gbm.Ordering.Domain.AggregatesModel.BuyerAggregate
 {
     public interface IBuyerRepository
     {
