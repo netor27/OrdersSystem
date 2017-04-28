@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+  gbm.ordering.api:
+    image: gbm.ordering.api
+    build:
+      context: ./Gbm.Ordering.Api
+      dockerfile: Dockerfile

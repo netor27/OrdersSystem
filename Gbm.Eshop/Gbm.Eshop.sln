@@ -20,6 +20,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gbm.Ordering.Domain", "Gbm.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gbm.Ordering.Infrastructure", "Gbm.Ordering.Infrastructure\Gbm.Ordering.Infrastructure.csproj", "{85F56DC1-F3DA-4F38-A1CD-D77EC2A57208}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gbm.Ordering.Api", "Gbm.Ordering.Api\Gbm.Ordering.Api.csproj", "{21607855-4879-4DB5-B8B8-D9B96DA59471}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{79D634AD-12A4-4490-82F2-8683CDAB743A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +38,14 @@ Global
 		{85F56DC1-F3DA-4F38-A1CD-D77EC2A57208}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{85F56DC1-F3DA-4F38-A1CD-D77EC2A57208}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{85F56DC1-F3DA-4F38-A1CD-D77EC2A57208}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21607855-4879-4DB5-B8B8-D9B96DA59471}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21607855-4879-4DB5-B8B8-D9B96DA59471}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21607855-4879-4DB5-B8B8-D9B96DA59471}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21607855-4879-4DB5-B8B8-D9B96DA59471}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79D634AD-12A4-4490-82F2-8683CDAB743A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79D634AD-12A4-4490-82F2-8683CDAB743A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79D634AD-12A4-4490-82F2-8683CDAB743A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79D634AD-12A4-4490-82F2-8683CDAB743A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,5 +56,7 @@ Global
 		{6D37932B-09E0-4FA2-84AC-6022795FAB31} = {81360833-5AD9-4E11-A8BE-735EFEB96436}
 		{FC9C9DD9-BEF0-4128-9061-C6E99CB3CB06} = {1011562D-92EF-4DB5-ACEF-48419DABD842}
 		{85F56DC1-F3DA-4F38-A1CD-D77EC2A57208} = {1011562D-92EF-4DB5-ACEF-48419DABD842}
+		{21607855-4879-4DB5-B8B8-D9B96DA59471} = {1011562D-92EF-4DB5-ACEF-48419DABD842}
+		{79D634AD-12A4-4490-82F2-8683CDAB743A} = {1011562D-92EF-4DB5-ACEF-48419DABD842}
 	EndGlobalSection
 EndGlobal
