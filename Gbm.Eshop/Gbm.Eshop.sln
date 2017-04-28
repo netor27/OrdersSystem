@@ -12,6 +12,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resiliency", "Resiliency", "{6D37932B-09E0-4FA2-84AC-6022795FAB31}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{1011562D-92EF-4DB5-ACEF-48419DABD842}"
+	ProjectSection(SolutionItems) = preProject
+		Notes.txt = Notes.txt
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gbm.Ordering.Domain", "Gbm.Ordering.Domain\Gbm.Ordering.Domain.csproj", "{FC9C9DD9-BEF0-4128-9061-C6E99CB3CB06}"
 EndProject

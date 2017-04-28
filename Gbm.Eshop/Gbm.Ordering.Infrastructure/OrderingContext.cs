@@ -20,7 +20,7 @@ namespace Gbm.Ordering.Infrastructure
 
         private readonly IMediator mediator;
 
-        public DbSet<Order> Order { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         public DbSet<OrderItem> OrderItems { get; set; }
 
@@ -32,7 +32,7 @@ namespace Gbm.Ordering.Infrastructure
 
         public DbSet<OrderStatus> OrderStatus { get; set; }
 
-        public OrderingContext(DbContextOptions options, IMediator mediator):base(options)
+        public OrderingContext(DbContextOptions options, IMediator mediator) : base(options)
         {
             this.mediator = mediator;
         }
@@ -82,24 +82,56 @@ namespace Gbm.Ordering.Infrastructure
 
         }
 
-        private void ConfigureOrder(EntityTypeBuilder<Order> paymentConfiguration)
+        private void ConfigureOrder(EntityTypeBuilder<Order> orderConfiguration)
         {
-            throw new NotImplementedException();
+            orderConfiguration.ToTable("orders", DEFAULT_SCHEMA);
+            orderConfiguration.HasKey(o => o.Id);
+            orderConfiguration.Ignore(o => o.DomainEvents);
+            orderConfiguration.Property(o => o.Id).ForSqlServerUseSequenceHiLo("orderseq", DEFAULT_SCHEMA);
+            orderConfiguration.Property<DateTime>("OrderDate").IsRequired();
+            orderConfiguration.Property<int>("BuyerId").IsRequired();
+            orderConfiguration.Property<int>("PaymentMethod").IsRequired();
+            orderConfiguration.Property(o => o.OrderStatus.Id).IsRequired();
+
+            var navigation = orderConfiguration.Metadata.FindNavigation(nameof(Order.OrderItems));
+            navigation.SetPropertyAccessMode(PropertyAccessMode.Field);
+
+            orderConfiguration.HasOne<PaymentMethod>().WithMany().HasForeignKey("PaymentMethodId")
+                .IsRequired(false).OnDelete(DeleteBehavior.Restrict);
+
+            orderConfiguration.HasOne<Buyer>().WithMany().HasForeignKey("BuyerId").IsRequired(false);
+            orderConfiguration.HasOne(o => o.OrderStatus).WithMany().HasForeignKey(o => o.OrderStatus.Id);
         }
 
-        private void ConfigureOrderItem(EntityTypeBuilder<OrderItem> paymentConfiguration)
+        private void ConfigureOrderItem(EntityTypeBuilder<OrderItem> orderItemConfiguration)
         {
-            throw new NotImplementedException();
+            orderItemConfiguration.ToTable("orderItems", DEFAULT_SCHEMA);
+            orderItemConfiguration.HasKey(o => o.Id);
+            orderItemConfiguration.Ignore(o => o.DomainEvents);
+            orderItemConfiguration.Property(o => o.Id).ForSqlServerUseSequenceHiLo("orderitemseq");
+            orderItemConfiguration.Property(o => o.Id).IsRequired();
+            orderItemConfiguration.Property<decimal>("Discount").IsRequired();
+            orderItemConfiguration.Property(o => o.ProductId).IsRequired();
+            orderItemConfiguration.Property<string>("ProductName").IsRequired();
+            orderItemConfiguration.Property<decimal>("UnitPrice").IsRequired();
+            orderItemConfiguration.Property<int>("Units").IsRequired();
+            orderItemConfiguration.Property<string>("PictureUri").IsRequired(false);
         }
 
-        private void ConfigureCardType(EntityTypeBuilder<CardType> paymentConfiguration)
+        private void ConfigureCardType(EntityTypeBuilder<CardType> cardTypeConfiguration)
         {
-            throw new NotImplementedException();
+            cardTypeConfiguration.ToTable("cardtypes", DEFAULT_SCHEMA);
+            cardTypeConfiguration.HasKey(c => c.Id);
+            cardTypeConfiguration.Property(c => c.Id).HasDefaultValue(1).ValueGeneratedNever().IsRequired();
+            cardTypeConfiguration.Property(c => c.Name).HasMaxLength(25).IsRequired();
         }
 
-        private void ConfigureOrderStatus(EntityTypeBuilder<OrderStatus> paymentConfiguration)
+        private void ConfigureOrderStatus(EntityTypeBuilder<OrderStatus> orderStatusConfiguration)
         {
-            throw new NotImplementedException();
+            orderStatusConfiguration.ToTable("orderstatus", DEFAULT_SCHEMA);
+            orderStatusConfiguration.HasKey(o => o.Id);
+            orderStatusConfiguration.Property(o => o.Id).HasDefaultValue(1).ValueGeneratedNever().IsRequired();
+            orderStatusConfiguration.Property(o => o.Name).HasMaxLength(25).IsRequired();            
         }
 
         private void ConfigureBuyer(EntityTypeBuilder<Buyer> buyerConfiguration)
@@ -112,14 +144,15 @@ namespace Gbm.Ordering.Infrastructure
             buyerConfiguration.HasIndex("IdentityGuid");
             buyerConfiguration.HasMany(b => b.PaymentMethods).WithOne()
                 .HasForeignKey("BuyerId").OnDelete(DeleteBehavior.Cascade);
-
             var navigation = buyerConfiguration.Metadata.FindNavigation(nameof(Buyer.PaymentMethods));
             navigation.SetPropertyAccessMode(PropertyAccessMode.Field);
         }
 
-        public Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            throw new NotImplementedException();
+            await mediator.DispatchDomainEventsAsync(this);
+            var result = await base.SaveChangesAsync();
+            return true;
         }
     }
 }

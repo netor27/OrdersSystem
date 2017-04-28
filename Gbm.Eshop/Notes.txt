@@ -1,0 +1,2 @@
+https://blogs.msdn.microsoft.com/cesardelatorre/2017/03/23/using-domain-events-within-a-net-core-microservice/
+
