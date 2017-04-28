@@ -66,7 +66,15 @@ namespace Gbm.Ordering.Infrastructure
 
         private void ConfigurePayment(EntityTypeBuilder<PaymentMethod> paymentConfiguration)
         {
-            throw new NotImplementedException();
+            paymentConfiguration.ToTable("paymentMethods", DEFAULT_SCHEMA);
+            paymentConfiguration.HasKey(p => p.Id);
+            paymentConfiguration.Ignore(p => p.DomainEvents);
+            paymentConfiguration.Property(p => p.Id).ForSqlServerUseSequenceHiLo("paymentSeq", DEFAULT_SCHEMA);
+            paymentConfiguration.Property<int>("BuyerId");
+            paymentConfiguration.Property<string>("CardHolderName").HasMaxLength(200).IsRequired();
+            paymentConfiguration.Property<string>("Alias").HasMaxLength(200).IsRequired();
+            paymentConfiguration.Property<string>("CardNumber").HasMaxLength(25).IsRequired();
+            paymentConfiguration.Property<DateTime>("Expiration").IsRequired();
         }
 
         private void ConfigureOrder(EntityTypeBuilder<Order> paymentConfiguration)
@@ -96,6 +104,12 @@ namespace Gbm.Ordering.Infrastructure
             buyerConfiguration.Ignore(b => b.DomainEvents);
             buyerConfiguration.Property(b => b.Id).ForSqlServerUseSequenceHiLo("buyerseq", DEFAULT_SCHEMA);
             buyerConfiguration.Property(b => b.IdentityGuid).HasMaxLength(200).IsRequired();
+            buyerConfiguration.HasIndex("IdentityGuid");
+            buyerConfiguration.HasMany(b => b.PaymentMethods).WithOne()
+                .HasForeignKey("BuyerId").OnDelete(DeleteBehavior.Cascade);
+
+            var navigation = buyerConfiguration.Metadata.FindNavigation(nameof(Buyer.PaymentMethods));
+            navigation.SetPropertyAccessMode(PropertyAccessMode.Field);
         }
 
         public Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))
