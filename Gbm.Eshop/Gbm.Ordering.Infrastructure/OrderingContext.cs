@@ -70,11 +70,16 @@ namespace Gbm.Ordering.Infrastructure
             paymentConfiguration.HasKey(p => p.Id);
             paymentConfiguration.Ignore(p => p.DomainEvents);
             paymentConfiguration.Property(p => p.Id).ForSqlServerUseSequenceHiLo("paymentSeq", DEFAULT_SCHEMA);
+
+            // TODO: Refactor this to invoke a lambda instead of the property name
             paymentConfiguration.Property<int>("BuyerId");
             paymentConfiguration.Property<string>("CardHolderName").HasMaxLength(200).IsRequired();
             paymentConfiguration.Property<string>("Alias").HasMaxLength(200).IsRequired();
             paymentConfiguration.Property<string>("CardNumber").HasMaxLength(25).IsRequired();
             paymentConfiguration.Property<DateTime>("Expiration").IsRequired();
+            paymentConfiguration.Property(p => p.CardType.Id).HasMaxLength(25).IsRequired();
+            paymentConfiguration.HasOne(p => p.CardType).WithMany().HasForeignKey(b => b.Id);
+
         }
 
         private void ConfigureOrder(EntityTypeBuilder<Order> paymentConfiguration)
