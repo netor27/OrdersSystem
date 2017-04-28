@@ -1,2 +1,4 @@
 https://blogs.msdn.microsoft.com/cesardelatorre/2017/03/23/using-domain-events-within-a-net-core-microservice/
 
+firewall powershell command
+New-NetFirewallRule -DisplayName GbmEshop-Outbound -Confirm -Description "GbmEshop docker containers rule" -LocalAddress Any -LocalPort 5100-5105 -Protocol tcp -RemoteAddress Any -RemotePort Any -Direction Outbound
